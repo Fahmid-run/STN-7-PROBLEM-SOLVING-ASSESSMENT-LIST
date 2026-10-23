@@ -135,8 +135,56 @@ var fizzBuzz = function (n) {
 
 // PROBLEM 11
 // PROBLEM 12
-// PROBLEM 13
-// PROBLEM 14
+// Problem 13: Contains Duplicate
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function (nums) {
+  const maps = new Map();
+
+  for (const num of nums) {
+    if (maps.has(num)) {
+      return true;
+    }
+
+    maps.set(num);
+  }
+
+  return false;
+};
+
+// Problem 14: Move Zeroes
+
+/**
+ * @param {number[]} nums
+ * @return {void}
+ */
+var moveZeroes = function (nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let first = i;
+    let second = i + 1;
+
+    if (first == nums.length - 1) {
+      break;
+    }
+    if (nums[first] === nums[second]) {
+      second++;
+    }
+
+    [nums[first], nums[second]] = [nums[second], nums[first]];
+
+    first++;
+    second++;
+  }
+};
+
+let nums = [0, 1, 0, 3, 12];
+
+moveZeroes(nums);
+
+console.log(nums);
+
 // PROBLEM 15
 // PROBLEM 16
 // PROBLEM 17
