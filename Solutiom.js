@@ -5,9 +5,14 @@
  */
 var staircase = function (n) {
   for (let i = 0; i < n; i++) {
-    console.log("#");
+    // for space printing
+    for (let j = n - i + 1; j > 0; j--) {
+      console.log(" ");
+    }
 
-    for (let j = i + 1; j <= i + 1; j++) {}
+    for (let j = 0; j < i + 1; j++) {
+      console.log("#");
+    }
   }
 };
 
@@ -19,9 +24,43 @@ var staircase = function (n) {
  * @param {number[]} grades
  * @return {number[]}
  */
-var gradingStudents = function (grades) {};
+var gradingStudents = function (grades) {
+  grades.forEach((value, index, arr) => {
+    let nextMultiple = value - (value % 5) + 5;
+    if (value < 38) {
+      return;
+    }
+    if (nextMultiple - value < 3) {
+      arr[index] = nextMultiple;
+    }
+  });
+};
 
-// PROBLEM 3
+// PROBLEM 3: Time Conversion
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var timeConversion = function (s) {
+  let splittedArr = s.split(":");
+  let hour = splittedArr[0];
+  let min = splittedArr[1];
+  let second = splittedArr[2].slice(0, 2);
+  let period = splittedArr[2].slice(2);
+
+  if (period === "AM") {
+    if (hour == "12") {
+      hour = "00";
+    }
+  } else {
+    if (hour !== "12") {
+      hour = String(Number(hour) + 12);
+    }
+  }
+};
+
+timeConversion("07:05:45PM");
 // Problem 4: String Repeat
 /**
  * @param {number} n
@@ -133,7 +172,39 @@ var fizzBuzz = function (n) {
 
 // PROBLEM 10:Running Sum of 1D Array
 
-// PROBLEM 11
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var runningSum = function (nums) {
+  const arr = [];
+
+  nums.reduce((acc, curr) => {
+    acc = acc + curr;
+    arr.push(acc);
+    return acc;
+  }, 0);
+};
+
+// PROBLEM 11: Richest Customer Wealth
+/**
+ * @param {number[][]} accounts
+ * @return {number}
+ */
+var maximumWealth = function (accounts) {
+  let maxWealth = 0;
+  for (let i = 0; i < accounts.length; i++) {
+    const element = accounts[i];
+    const currSum = element.reduce((accu, curr) => accu + curr, 0);
+
+    if (currSum > maxWealth) {
+      maxWealth = currSum;
+    }
+  }
+
+  return maxWealth;
+};
+
 // PROBLEM 12
 // Problem 13: Contains Duplicate
 /**
@@ -181,12 +252,58 @@ var moveZeroes = function (nums) {
 
 let nums = [0, 1, 0, 3, 12];
 
-moveZeroes(nums);
+// moveZeroes(nums);
 
-console.log(nums);
+// console.log(nums);
 
 // PROBLEM 15
-// PROBLEM 16
-// PROBLEM 17
-// PROBLEM 18
-// PROBLEM 19
+// Problem 16: 3Sum
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {};
+
+// Problem 17: Plus One
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function (digits) {
+  let num = digits.reduce((acc, curr) => acc * 10 + curr, 0);
+
+  num++;
+  return String(num).split("").map(Number);
+};
+
+// PROBLEM 18:: Reverse String
+/**
+ * @param {string[]} s
+ * @return {void}
+ */
+var reverseString = function (s) {
+  let start = 0;
+  let end = s.length - 1;
+
+  while (start < end) {
+    let tmp;
+
+    tmp = s[start];
+    s[start] = s[end];
+    s[end] = tmp;
+
+    start++;
+    end--;
+  }
+};
+
+// PROBLEM 19: Length of Last Word
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function (s) {
+  let tempArr = s.trim().split(/\s+/);
+
+  return tempArr[tempArr.length - 1].length;
+};
