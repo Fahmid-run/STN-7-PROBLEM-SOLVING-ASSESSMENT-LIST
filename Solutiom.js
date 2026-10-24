@@ -205,7 +205,23 @@ var maximumWealth = function (accounts) {
   return maxWealth;
 };
 
-// PROBLEM 12
+// PROBLEM 12:Remove Duplicates from Sorted Array
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function (nums) {
+  let i = 0;
+  for (let j = 1; j < nums.length; j++) {
+    if (nums[i] !== nums[j]) {
+      i++;
+      nums[i] = nums[j];
+    }
+  }
+
+  return i + 1;
+};
+
 // Problem 13: Contains Duplicate
 /**
  * @param {number[]} nums
@@ -232,31 +248,33 @@ var containsDuplicate = function (nums) {
  * @return {void}
  */
 var moveZeroes = function (nums) {
-  for (let i = 0; i < nums.length; i++) {
-    let first = i;
-    let second = i + 1;
-
-    if (first == nums.length - 1) {
-      break;
+  let i = 0;
+  for (let j = 1; j < nums.length; j++) {
+    if (nums[i] == 0 && nums[j] == 0) {
+      continue;
     }
-    if (nums[first] === nums[second]) {
-      second++;
+    if (nums[i] != nums[j]) {
+      let temp = nums[i];
+      nums[i] = nums[j];
+      nums[j] = temp;
+      i++;
     }
-
-    [nums[first], nums[second]] = [nums[second], nums[first]];
-
-    first++;
-    second++;
   }
 };
 
-let nums = [0, 1, 0, 3, 12];
+// PROBLEM 15: Merge Sorted Array
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void}
+ */
+var merge = function (nums1, m, nums2, n) {
+  nums1.splice(m, nums1.length - m, ...nums2);
+};
 
-// moveZeroes(nums);
-
-// console.log(nums);
-
-// PROBLEM 15
+merge([0], 0, [1], 1);
 // Problem 16: 3Sum
 /**
  * @param {number[]} nums
