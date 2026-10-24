@@ -3,20 +3,7 @@
  * @param {number} n
  * @return {string}
  */
-var staircase = function (n) {
-  for (let i = 0; i < n; i++) {
-    // for space printing
-    for (let j = n - i + 1; j > 0; j--) {
-      console.log(" ");
-    }
-
-    for (let j = 0; j < i + 1; j++) {
-      console.log("#");
-    }
-  }
-};
-
-// staircase(4);
+var staircase = function (n) {};
 
 // PROBLEM 2: Grading Students
 
@@ -34,6 +21,8 @@ var gradingStudents = function (grades) {
       arr[index] = nextMultiple;
     }
   });
+
+  return grades;
 };
 
 // PROBLEM 3: Time Conversion
@@ -58,9 +47,10 @@ var timeConversion = function (s) {
       hour = String(Number(hour) + 12);
     }
   }
+
+  return `${hour}:${min}:${second}`;
 };
 
-timeConversion("07:05:45PM");
 // Problem 4: String Repeat
 /**
  * @param {number} n
@@ -85,18 +75,14 @@ var repeatStr = function (n, s) {
  * @return {string}
  */
 
-var solution2 = function (str) {
+var solution = function (str) {
   if (str.length <= 0) {
     return "";
   }
-  let temp = "";
 
-  for (let i = str.length - 1; i >= 0; i--) {
-    temp += str[i];
-  }
-
-  return temp;
+  return str.split("").reverse().join("");
 };
+
 // PROBLEM 6:Sum of Positive
 /**
  * @param {number[]} arr
@@ -184,8 +170,9 @@ var runningSum = function (nums) {
     arr.push(acc);
     return acc;
   }, 0);
-};
 
+  return arr;
+};
 // PROBLEM 11: Richest Customer Wealth
 /**
  * @param {number[][]} accounts
@@ -211,6 +198,7 @@ var maximumWealth = function (accounts) {
  * @return {number}
  */
 var removeDuplicates = function (nums) {
+  if (nums.length === 0) return 0;
   let i = 0;
   for (let j = 1; j < nums.length; j++) {
     if (nums[i] !== nums[j]) {
@@ -249,14 +237,9 @@ var containsDuplicate = function (nums) {
  */
 var moveZeroes = function (nums) {
   let i = 0;
-  for (let j = 1; j < nums.length; j++) {
-    if (nums[i] == 0 && nums[j] == 0) {
-      continue;
-    }
-    if (nums[i] != nums[j]) {
-      let temp = nums[i];
-      nums[i] = nums[j];
-      nums[j] = temp;
+  for (let j = 0; j < nums.length; j++) {
+    if (nums[j] !== 0) {
+      [nums[i], nums[j]] = [nums[j], nums[i]];
       i++;
     }
   }
@@ -271,10 +254,19 @@ var moveZeroes = function (nums) {
  * @return {void}
  */
 var merge = function (nums1, m, nums2, n) {
-  nums1.splice(m, nums1.length - m, ...nums2);
+  let i = m - 1;
+  let j = n - 1;
+  let k = m + n - 1;
+
+  while (j >= 0) {
+    if (i >= 0 && nums1[i] > nums2[j]) {
+      nums1[k--] = nums1[i--];
+    } else {
+      nums1[k--] = nums2[j--];
+    }
+  }
 };
 
-merge([0], 0, [1], 1);
 // Problem 16: 3Sum
 /**
  * @param {number[]} nums
@@ -288,10 +280,14 @@ var threeSum = function (nums) {};
  * @return {number[]}
  */
 var plusOne = function (digits) {
-  let num = digits.reduce((acc, curr) => acc * 10 + curr, 0);
-
-  num++;
-  return String(num).split("").map(Number);
+  for (let i = digits.length - 1; i >= 0; i--) {
+    if (digits[i] < 9) {
+      digits[i]++;
+      return digits;
+    }
+    digits[i] = 0;
+  }
+  return [1, ...digits];
 };
 
 // PROBLEM 18:: Reverse String
@@ -324,4 +320,24 @@ var lengthOfLastWord = function (s) {
   let tempArr = s.trim().split(/\s+/);
 
   return tempArr[tempArr.length - 1].length;
+};
+
+// Problem 20: Longest Common Prefix
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function (strs) {
+  if (strs.length === 0) return "";
+
+  let prefix = strs[0];
+
+  for (let i = 1; i < strs.length; i++) {
+    while (strs[i].indexOf(prefix) !== 0) {
+      prefix = prefix.slice(0, -1);
+      if (prefix === "") return "";
+    }
+  }
+
+  return prefix;
 };
